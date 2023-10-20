@@ -1,0 +1,187 @@
+---
+title: "Lab 5"
+author: "Jean-Baptiste Astruc"
+output:
+  html_document:
+    self_contained: true
+    code_folding: hide
+keep-md: true
+---
+
+```{r}
+here::i_am("Lab 5.Rproj")
+library(here)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+theme_set(theme_bw())
+```
+
+## Exercise 1
+
+```{r}
+spotify <- readRDS(here("top-spotify-hits-2000-2019.Rds"))
+```
+
+### Question 1
+
+```{r}
+spotify_songs <- spotify |> 
+  distinct(artist, song, .keep_all = TRUE)
+
+nbsongs <- nrow(spotify_songs)
+```
+
+The data set contains `r nbsongs` songs.
+
+```{r}
+spotify_artists <- spotify |>
+  distinct(artist)
+
+nbartists <- nrow(spotify_artists)
+```
+
+The data set contains `r nbartists` artists.
+
+```{r}
+spotify_genre <- spotify |>
+  distinct(genre)
+
+nbgenre <- nrow(spotify_genre)
+```
+
+The data set contains `r nbgenre` genres.
+
+### Question 2
+
+```{r}
+artists_by_year <- spotify |>
+  group_by(year) |>
+  distinct(artist)|>
+  summarise(nbartists_by_year = n())
+
+table1 <- knitr::kable(artists_by_year, col.names = c("Year", "Number of distinct artists per year"))
+```
+
+Here is the table: 
+
+`r table1`
+
+### Question 3
+
+```{r}
+most_pop_artist_table <- spotify_songs |>
+  group_by(artist) |>
+  distinct(song) |>
+  summarise(nbsongs_by_year = n()) |>
+  arrange(desc(nbsongs_by_year)) |>
+  slice_head(n = 1)
+
+most_pop_artist_name <- most_pop_artist_table |>
+  pull(artist)
+
+most_pop_artist_nbsongs <- most_pop_artist_table |>
+  pull(nbsongs_by_year)
+```
+
+The most popular artist is `r most_pop_artist_name` with `r most_pop_artist_nbsongs` songs.
+
+### Question 4
+
+```{r}
+tempo_genre <- spotify_songs |>
+  group_by(genre) |>
+  distinct(tempo, song, .keep_all = TRUE) |>
+  summarise(min(tempo), max(tempo), mean(tempo), median(tempo), n())
+
+table2 <- knitr::kable(tempo_genre)
+```
+
+Here is the table:
+
+`r table2`
+
+### Question 5
+
+```{r}
+liveness_danceability <- spotify_songs |>
+  group_by(year) |>
+  distinct(liveness, danceability, .keep_all = TRUE) |>
+  summarise(mean_liveness = mean(liveness), 
+            mean_danceability = mean(danceability))
+```
+
+
+### Question 6
+
+```{r}
+ggplot(liveness_danceability, aes(x = year)) +
+  geom_line(aes(y = mean_liveness, color = "Mean of the liveness")) +
+  geom_line(aes(y = mean_danceability, color = "Mean of the danceability")) +
+  xlab("Year") +
+  ylab("Value of the mean") +
+  ggtitle("Evolution of the mean of the danceability and the mean of the liveness over time")
+```
+
+## Exercise 2
+
+```{r}
+dropout <- readRDS(here("dropout.RDS"))
+```
+
+### Question 1
+
+```{r}
+median_admission_grade <- dropout |>
+  group_by(Target, `Marital status`) |>
+  summarise(median_ad = median(`Admission grade`), .groups = "drop_last")
+```
+
+### Question 2
+
+```{r}
+median_admission_grade_2 <- dropout |>
+  group_by(Target, `Marital status`) |>
+  summarise(median_ad = median(`Admission grade`), .groups = "drop_last") |>
+  pivot_wider(values_from = median_ad, names_from = Target)
+
+table3 <- knitr::kable(median_admission_grade_2)
+```
+
+Here is the table:
+
+`r table3`
+
+### Question 3
+
+```{r}
+curricular_units <- names(select(dropout, starts_with("Curricular units")))
+
+median_curricular_units <- dropout |>
+  group_by(Gender) |>
+  summarize(across(all_of(curricular_units), ~median(., na.rm = TRUE)), .groups = 'drop')
+```
+
+
+### Question 4
+
+```{r}
+step1 <- dropout |>
+  select(starts_with("Curricular units"), Gender) |>
+  pivot_longer(cols = starts_with("Curricular units"),
+                names_to = "Units",
+                values_to = "Value")
+
+final_table <- step1 |> 
+  group_by(Units, Gender) |>
+  summarize(Median_Value = median(Value, na.rm = TRUE), .groups = 'drop') |>
+  pivot_wider(names_from = Gender,
+              values_from = Median_Value)
+
+table4 <- knitr::kable(final_table)
+```
+
+Here is the table:
+
+`r table4`
+

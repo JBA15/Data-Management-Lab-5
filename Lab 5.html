@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jean-Baptiste Astruc">
+
+<title>Lab 5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Lab 5_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lab 5_files/libs/quarto-html/quarto.js"></script>
+<script src="Lab 5_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lab 5_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Lab 5_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Lab 5_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lab 5_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Lab 5_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Lab 5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Lab 5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 5</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jean-Baptiste Astruc </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>here<span class="sc">::</span><span class="fu">i_am</span>(<span class="st">"Lab 5.Rproj"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at /Users/jeanbaptisteastruc/Desktop/QE/Data Management and Programming/Lecture-TD 5/Lab 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>spotify <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"top-spotify-hits-2000-2019.Rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="question-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1">Question 1</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>spotify_songs <span class="ot">&lt;-</span> spotify <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(artist, song, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>nbsongs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(spotify_songs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data set contains 1926 songs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spotify_artists <span class="ot">&lt;-</span> spotify <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(artist)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>nbartists <span class="ot">&lt;-</span> <span class="fu">nrow</span>(spotify_artists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data set contains 835 artists.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>spotify_genre <span class="ot">&lt;-</span> spotify <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(genre)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>nbgenre <span class="ot">&lt;-</span> <span class="fu">nrow</span>(spotify_genre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data set contains 59 genres.</p>
+</section>
+<section id="question-2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2">Question 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>artists_by_year <span class="ot">&lt;-</span> spotify <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(artist)<span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">nbartists_by_year =</span> <span class="fu">n</span>())</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">kable</span>(artists_by_year, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Number of distinct artists per year"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the table:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: right;">Number of distinct artists per year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1998</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1999</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2000</td>
+<td style="text-align: right;">58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2001</td>
+<td style="text-align: right;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2002</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2003</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2004</td>
+<td style="text-align: right;">65</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2005</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2006</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2007</td>
+<td style="text-align: right;">66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2008</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2009</td>
+<td style="text-align: right;">61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: right;">62</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2012</td>
+<td style="text-align: right;">67</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2013</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2014</td>
+<td style="text-align: right;">70</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: right;">86</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">81</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-3" class="level3">
+<h3 class="anchored" data-anchor-id="question-3">Question 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>most_pop_artist_table <span class="ot">&lt;-</span> spotify_songs <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(artist) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(song) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">nbsongs_by_year =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nbsongs_by_year)) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>most_pop_artist_name <span class="ot">&lt;-</span> most_pop_artist_table <span class="sc">|&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(artist)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>most_pop_artist_nbsongs <span class="ot">&lt;-</span> most_pop_artist_table <span class="sc">|&gt;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(nbsongs_by_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The most popular artist is Rihanna with 23 songs.</p>
+</section>
+<section id="question-4" class="level3">
+<h3 class="anchored" data-anchor-id="question-4">Question 4</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tempo_genre <span class="ot">&lt;-</span> spotify_songs <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genre) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(tempo, song, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">min</span>(tempo), <span class="fu">max</span>(tempo), <span class="fu">mean</span>(tempo), <span class="fu">median</span>(tempo), <span class="fu">n</span>())</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>table2 <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">kable</span>(tempo_genre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the table:</p>
+<table class="table">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">genre</th>
+<th style="text-align: right;">min(tempo)</th>
+<th style="text-align: right;">max(tempo)</th>
+<th style="text-align: right;">mean(tempo)</th>
+<th style="text-align: right;">median(tempo)</th>
+<th style="text-align: right;">n()</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dance/Electronic</td>
+<td style="text-align: right;">75.255</td>
+<td style="text-align: right;">179.642</td>
+<td style="text-align: right;">125.5075</td>
+<td style="text-align: right;">126.0410</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Folk/Acoustic, pop</td>
+<td style="text-align: right;">94.931</td>
+<td style="text-align: right;">128.945</td>
+<td style="text-align: right;">111.9380</td>
+<td style="text-align: right;">111.9380</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Folk/Acoustic, rock</td>
+<td style="text-align: right;">84.192</td>
+<td style="text-align: right;">84.192</td>
+<td style="text-align: right;">84.1920</td>
+<td style="text-align: right;">84.1920</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Folk/Acoustic, rock, pop</td>
+<td style="text-align: right;">138.585</td>
+<td style="text-align: right;">138.585</td>
+<td style="text-align: right;">138.5850</td>
+<td style="text-align: right;">138.5850</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R&amp;B</td>
+<td style="text-align: right;">71.815</td>
+<td style="text-align: right;">170.661</td>
+<td style="text-align: right;">106.9248</td>
+<td style="text-align: right;">100.4600</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">World/Traditional, Folk/Acoustic</td>
+<td style="text-align: right;">82.803</td>
+<td style="text-align: right;">82.803</td>
+<td style="text-align: right;">82.8030</td>
+<td style="text-align: right;">82.8030</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">World/Traditional, hip hop</td>
+<td style="text-align: right;">98.077</td>
+<td style="text-align: right;">101.993</td>
+<td style="text-align: right;">100.0350</td>
+<td style="text-align: right;">100.0350</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">World/Traditional, pop</td>
+<td style="text-align: right;">108.102</td>
+<td style="text-align: right;">108.102</td>
+<td style="text-align: right;">108.1020</td>
+<td style="text-align: right;">108.1020</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">World/Traditional, pop, Folk/Acoustic</td>
+<td style="text-align: right;">100.380</td>
+<td style="text-align: right;">104.833</td>
+<td style="text-align: right;">102.6065</td>
+<td style="text-align: right;">102.6065</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">World/Traditional, rock</td>
+<td style="text-align: right;">96.000</td>
+<td style="text-align: right;">140.083</td>
+<td style="text-align: right;">118.0415</td>
+<td style="text-align: right;">118.0415</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">World/Traditional, rock, pop</td>
+<td style="text-align: right;">132.013</td>
+<td style="text-align: right;">139.048</td>
+<td style="text-align: right;">135.5305</td>
+<td style="text-align: right;">135.5305</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">country</td>
+<td style="text-align: right;">103.055</td>
+<td style="text-align: right;">205.570</td>
+<td style="text-align: right;">138.1508</td>
+<td style="text-align: right;">136.0020</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">country, latin</td>
+<td style="text-align: right;">96.055</td>
+<td style="text-align: right;">96.055</td>
+<td style="text-align: right;">96.0550</td>
+<td style="text-align: right;">96.0550</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">easy listening</td>
+<td style="text-align: right;">157.920</td>
+<td style="text-align: right;">157.920</td>
+<td style="text-align: right;">157.9200</td>
+<td style="text-align: right;">157.9200</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop</td>
+<td style="text-align: right;">64.934</td>
+<td style="text-align: right;">179.974</td>
+<td style="text-align: right;">116.9894</td>
+<td style="text-align: right;">111.6795</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, Dance/Electronic</td>
+<td style="text-align: right;">95.948</td>
+<td style="text-align: right;">190.151</td>
+<td style="text-align: right;">135.4297</td>
+<td style="text-align: right;">131.0500</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop, R&amp;B</td>
+<td style="text-align: right;">100.215</td>
+<td style="text-align: right;">151.181</td>
+<td style="text-align: right;">121.1220</td>
+<td style="text-align: right;">111.9700</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, country</td>
+<td style="text-align: right;">97.984</td>
+<td style="text-align: right;">97.984</td>
+<td style="text-align: right;">97.9840</td>
+<td style="text-align: right;">97.9840</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop, latin, Dance/Electronic</td>
+<td style="text-align: right;">171.993</td>
+<td style="text-align: right;">171.993</td>
+<td style="text-align: right;">171.9930</td>
+<td style="text-align: right;">171.9930</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, pop</td>
+<td style="text-align: right;">73.003</td>
+<td style="text-align: right;">203.911</td>
+<td style="text-align: right;">118.9619</td>
+<td style="text-align: right;">119.9750</td>
+<td style="text-align: right;">265</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop, pop, Dance/Electronic</td>
+<td style="text-align: right;">72.022</td>
+<td style="text-align: right;">196.093</td>
+<td style="text-align: right;">120.8555</td>
+<td style="text-align: right;">126.0620</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, pop, R&amp;B</td>
+<td style="text-align: right;">60.019</td>
+<td style="text-align: right;">203.862</td>
+<td style="text-align: right;">115.1808</td>
+<td style="text-align: right;">107.2030</td>
+<td style="text-align: right;">234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop, pop, R&amp;B, Dance/Electronic</td>
+<td style="text-align: right;">82.820</td>
+<td style="text-align: right;">127.901</td>
+<td style="text-align: right;">103.9113</td>
+<td style="text-align: right;">101.0130</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, pop, R&amp;B, latin</td>
+<td style="text-align: right;">82.331</td>
+<td style="text-align: right;">100.010</td>
+<td style="text-align: right;">91.1705</td>
+<td style="text-align: right;">91.1705</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop, pop, country</td>
+<td style="text-align: right;">129.370</td>
+<td style="text-align: right;">129.370</td>
+<td style="text-align: right;">129.3700</td>
+<td style="text-align: right;">129.3700</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, pop, latin</td>
+<td style="text-align: right;">89.661</td>
+<td style="text-align: right;">180.184</td>
+<td style="text-align: right;">127.2119</td>
+<td style="text-align: right;">127.0265</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hip hop, pop, rock</td>
+<td style="text-align: right;">84.858</td>
+<td style="text-align: right;">179.999</td>
+<td style="text-align: right;">123.1123</td>
+<td style="text-align: right;">125.2500</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hip hop, rock, pop</td>
+<td style="text-align: right;">90.052</td>
+<td style="text-align: right;">90.052</td>
+<td style="text-align: right;">90.0520</td>
+<td style="text-align: right;">90.0520</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">latin</td>
+<td style="text-align: right;">90.013</td>
+<td style="text-align: right;">198.075</td>
+<td style="text-align: right;">121.6049</td>
+<td style="text-align: right;">97.0620</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">metal</td>
+<td style="text-align: right;">79.012</td>
+<td style="text-align: right;">147.387</td>
+<td style="text-align: right;">106.2089</td>
+<td style="text-align: right;">101.9680</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop</td>
+<td style="text-align: right;">65.043</td>
+<td style="text-align: right;">195.685</td>
+<td style="text-align: right;">120.6325</td>
+<td style="text-align: right;">119.9520</td>
+<td style="text-align: right;">411</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, Dance/Electronic</td>
+<td style="text-align: right;">84.878</td>
+<td style="text-align: right;">198.065</td>
+<td style="text-align: right;">123.7314</td>
+<td style="text-align: right;">124.0800</td>
+<td style="text-align: right;">213</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop, Folk/Acoustic</td>
+<td style="text-align: right;">76.026</td>
+<td style="text-align: right;">171.790</td>
+<td style="text-align: right;">118.3595</td>
+<td style="text-align: right;">109.9505</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, R&amp;B</td>
+<td style="text-align: right;">68.942</td>
+<td style="text-align: right;">210.851</td>
+<td style="text-align: right;">117.0158</td>
+<td style="text-align: right;">111.9645</td>
+<td style="text-align: right;">170</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop, R&amp;B, Dance/Electronic</td>
+<td style="text-align: right;">84.021</td>
+<td style="text-align: right;">176.051</td>
+<td style="text-align: right;">112.0338</td>
+<td style="text-align: right;">104.0865</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, R&amp;B, easy listening</td>
+<td style="text-align: right;">108.984</td>
+<td style="text-align: right;">108.984</td>
+<td style="text-align: right;">108.9840</td>
+<td style="text-align: right;">108.9840</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop, country</td>
+<td style="text-align: right;">97.865</td>
+<td style="text-align: right;">147.905</td>
+<td style="text-align: right;">130.5087</td>
+<td style="text-align: right;">136.9250</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, easy listening, Dance/Electronic</td>
+<td style="text-align: right;">135.099</td>
+<td style="text-align: right;">135.099</td>
+<td style="text-align: right;">135.0990</td>
+<td style="text-align: right;">135.0990</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop, easy listening, jazz</td>
+<td style="text-align: right;">82.168</td>
+<td style="text-align: right;">127.831</td>
+<td style="text-align: right;">104.9995</td>
+<td style="text-align: right;">104.9995</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, latin</td>
+<td style="text-align: right;">79.997</td>
+<td style="text-align: right;">177.833</td>
+<td style="text-align: right;">113.5903</td>
+<td style="text-align: right;">104.2540</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop, rock</td>
+<td style="text-align: right;">77.967</td>
+<td style="text-align: right;">176.667</td>
+<td style="text-align: right;">121.0976</td>
+<td style="text-align: right;">119.0095</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, rock, Dance/Electronic</td>
+<td style="text-align: right;">87.016</td>
+<td style="text-align: right;">189.857</td>
+<td style="text-align: right;">133.9808</td>
+<td style="text-align: right;">135.9875</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pop, rock, Folk/Acoustic</td>
+<td style="text-align: right;">102.961</td>
+<td style="text-align: right;">112.960</td>
+<td style="text-align: right;">107.9605</td>
+<td style="text-align: right;">107.9605</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop, rock, metal</td>
+<td style="text-align: right;">82.952</td>
+<td style="text-align: right;">155.827</td>
+<td style="text-align: right;">128.9358</td>
+<td style="text-align: right;">134.7165</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock</td>
+<td style="text-align: right;">74.989</td>
+<td style="text-align: right;">199.935</td>
+<td style="text-align: right;">129.5312</td>
+<td style="text-align: right;">123.6960</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, Dance/Electronic</td>
+<td style="text-align: right;">127.988</td>
+<td style="text-align: right;">127.988</td>
+<td style="text-align: right;">127.9880</td>
+<td style="text-align: right;">127.9880</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock, Folk/Acoustic, easy listening</td>
+<td style="text-align: right;">122.979</td>
+<td style="text-align: right;">122.979</td>
+<td style="text-align: right;">122.9790</td>
+<td style="text-align: right;">122.9790</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, Folk/Acoustic, pop</td>
+<td style="text-align: right;">80.529</td>
+<td style="text-align: right;">80.529</td>
+<td style="text-align: right;">80.5290</td>
+<td style="text-align: right;">80.5290</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock, R&amp;B, Folk/Acoustic, pop</td>
+<td style="text-align: right;">105.987</td>
+<td style="text-align: right;">105.987</td>
+<td style="text-align: right;">105.9870</td>
+<td style="text-align: right;">105.9870</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, blues</td>
+<td style="text-align: right;">123.904</td>
+<td style="text-align: right;">141.933</td>
+<td style="text-align: right;">132.9185</td>
+<td style="text-align: right;">132.9185</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock, blues, latin</td>
+<td style="text-align: right;">97.911</td>
+<td style="text-align: right;">127.981</td>
+<td style="text-align: right;">112.9460</td>
+<td style="text-align: right;">112.9460</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, classical</td>
+<td style="text-align: right;">81.663</td>
+<td style="text-align: right;">81.663</td>
+<td style="text-align: right;">81.6630</td>
+<td style="text-align: right;">81.6630</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock, easy listening</td>
+<td style="text-align: right;">114.999</td>
+<td style="text-align: right;">114.999</td>
+<td style="text-align: right;">114.9990</td>
+<td style="text-align: right;">114.9990</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, metal</td>
+<td style="text-align: right;">89.342</td>
+<td style="text-align: right;">187.961</td>
+<td style="text-align: right;">127.3922</td>
+<td style="text-align: right;">120.0555</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock, pop</td>
+<td style="text-align: right;">68.976</td>
+<td style="text-align: right;">184.086</td>
+<td style="text-align: right;">123.8996</td>
+<td style="text-align: right;">124.9700</td>
+<td style="text-align: right;">39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, pop, Dance/Electronic</td>
+<td style="text-align: right;">113.049</td>
+<td style="text-align: right;">181.994</td>
+<td style="text-align: right;">135.7678</td>
+<td style="text-align: right;">127.4480</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rock, pop, metal</td>
+<td style="text-align: right;">126.115</td>
+<td style="text-align: right;">152.034</td>
+<td style="text-align: right;">140.2785</td>
+<td style="text-align: right;">141.4825</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rock, pop, metal, Dance/Electronic</td>
+<td style="text-align: right;">105.013</td>
+<td style="text-align: right;">105.013</td>
+<td style="text-align: right;">105.0130</td>
+<td style="text-align: right;">105.0130</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set()</td>
+<td style="text-align: right;">68.507</td>
+<td style="text-align: right;">184.819</td>
+<td style="text-align: right;">120.1329</td>
+<td style="text-align: right;">126.9620</td>
+<td style="text-align: right;">22</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-5" class="level3">
+<h3 class="anchored" data-anchor-id="question-5">Question 5</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>liveness_danceability <span class="ot">&lt;-</span> spotify_songs <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(liveness, danceability, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_liveness =</span> <span class="fu">mean</span>(liveness), </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_danceability =</span> <span class="fu">mean</span>(danceability))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="question-6" class="level3">
+<h3 class="anchored" data-anchor-id="question-6">Question 6</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(liveness_danceability, <span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean_liveness, <span class="at">color =</span> <span class="st">"Mean of the liveness"</span>)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> mean_danceability, <span class="at">color =</span> <span class="st">"Mean of the danceability"</span>)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Value of the mean"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Evolution of the mean of the danceability and the mean of the liveness over time"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lab-5_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dropout <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"dropout.RDS"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="question-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-1-1">Question 1</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>median_admission_grade <span class="ot">&lt;-</span> dropout <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Target, <span class="st">`</span><span class="at">Marital status</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median_ad =</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Admission grade</span><span class="st">`</span>), <span class="at">.groups =</span> <span class="st">"drop_last"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="question-2-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-2-1">Question 2</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>median_admission_grade_2 <span class="ot">&lt;-</span> dropout <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Target, <span class="st">`</span><span class="at">Marital status</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median_ad =</span> <span class="fu">median</span>(<span class="st">`</span><span class="at">Admission grade</span><span class="st">`</span>), <span class="at">.groups =</span> <span class="st">"drop_last"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> median_ad, <span class="at">names_from =</span> Target)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>table3 <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">kable</span>(median_admission_grade_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the table:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Marital status</th>
+<th style="text-align: right;">Dropout</th>
+<th style="text-align: right;">Graduate</th>
+<th style="text-align: right;">Enrolled</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">single</td>
+<td style="text-align: right;">123.35</td>
+<td style="text-align: right;">127.3</td>
+<td style="text-align: right;">124.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">married</td>
+<td style="text-align: right;">126.50</td>
+<td style="text-align: right;">130.0</td>
+<td style="text-align: right;">122.95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">divorced</td>
+<td style="text-align: right;">126.50</td>
+<td style="text-align: right;">126.0</td>
+<td style="text-align: right;">130.20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">widower</td>
+<td style="text-align: right;">129.40</td>
+<td style="text-align: right;">170.0</td>
+<td style="text-align: right;">151.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">facto union</td>
+<td style="text-align: right;">119.40</td>
+<td style="text-align: right;">120.0</td>
+<td style="text-align: right;">119.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">legally separated</td>
+<td style="text-align: right;">112.50</td>
+<td style="text-align: right;">114.8</td>
+<td style="text-align: right;">119.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="question-3-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-3-1">Question 3</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>curricular_units <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(dropout, <span class="fu">starts_with</span>(<span class="st">"Curricular units"</span>)))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>median_curricular_units <span class="ot">&lt;-</span> dropout <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender) <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(curricular_units), <span class="sc">~</span><span class="fu">median</span>(., <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="question-4-1" class="level3">
+<h3 class="anchored" data-anchor-id="question-4-1">Question 4</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>step1 <span class="ot">&lt;-</span> dropout <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Curricular units"</span>), Gender) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"Curricular units"</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_to =</span> <span class="st">"Units"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_to =</span> <span class="st">"Value"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>final_table <span class="ot">&lt;-</span> step1 <span class="sc">|&gt;</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Units, Gender) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Median_Value =</span> <span class="fu">median</span>(Value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> Median_Value)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>table4 <span class="ot">&lt;-</span> knitr<span class="sc">::</span><span class="fu">kable</span>(final_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the table:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Units</th>
+<th style="text-align: right;">Male</th>
+<th style="text-align: right;">Female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Curricular units 1st sem (approved)</td>
+<td style="text-align: right;">4.00000</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curricular units 1st sem (credited)</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Curricular units 1st sem (enrolled)</td>
+<td style="text-align: right;">6.00000</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curricular units 1st sem (evaluations)</td>
+<td style="text-align: right;">8.00000</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Curricular units 1st sem (grade)</td>
+<td style="text-align: right;">11.83333</td>
+<td style="text-align: right;">12.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curricular units 1st sem (without evaluations)</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Curricular units 2nd sem (approved)</td>
+<td style="text-align: right;">4.00000</td>
+<td style="text-align: right;">5.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curricular units 2nd sem (credited)</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Curricular units 2nd sem (enrolled)</td>
+<td style="text-align: right;">6.00000</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curricular units 2nd sem (evaluations)</td>
+<td style="text-align: right;">8.00000</td>
+<td style="text-align: right;">8.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Curricular units 2nd sem (grade)</td>
+<td style="text-align: right;">11.63604</td>
+<td style="text-align: right;">12.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Curricular units 2nd sem (without evaluations)</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
