@@ -5,6 +5,7 @@ format:
   html: default
   pdf: default
 echo: false
+keep-md: true
 ---
 
 ```{r Setup, include = FALSE}
@@ -108,8 +109,13 @@ liveness_danceability <- spotify_songs |>
   distinct(liveness, danceability, .keep_all = TRUE) |>
   summarise(mean_liveness = mean(liveness), 
             mean_danceability = mean(danceability))
+
+table3 <- knitr::kable(liveness_danceability)
 ```
 
+Here is the table:
+
+`r table3`
 
 ### Question 6
 
@@ -144,12 +150,12 @@ median_admission_grade_2 <- dropout |>
   summarise(median_ad = median(`Admission grade`), .groups = "drop_last") |>
   pivot_wider(values_from = median_ad, names_from = Target)
 
-table3 <- knitr::kable(median_admission_grade_2)
+table4 <- knitr::kable(median_admission_grade_2)
 ```
 
 Here is the table:
 
-`r table3`
+`r table4`
 
 ### Question 3
 
@@ -177,10 +183,10 @@ final_table <- step1 |>
   pivot_wider(names_from = Gender,
               values_from = Median_Value)
 
-table4 <- knitr::kable(final_table)
+table5 <- knitr::kable(final_table)
 ```
 
 Here is the table:
 
-`r table4`
+`r table5`
 
