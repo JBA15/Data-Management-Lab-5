@@ -1,14 +1,13 @@
 ---
 title: "Lab 5"
 author: "Jean-Baptiste Astruc"
-output:
-  html_document:
-    self_contained: true
-    code_folding: hide
-keep-md: true
+format:
+  html: default
+  pdf: default
+echo: false
 ---
 
-```{r}
+```{r Setup, include = FALSE}
 here::i_am("Lab 5.Rproj")
 library(here)
 library(dplyr)
