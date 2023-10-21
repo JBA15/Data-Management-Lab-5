@@ -68,19 +68,23 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Here is the URL: <a href="https://github.com/JBA15/Data-Management-Lab-5">https://github.com/JBA15/Data-Management-Lab-5</a></p>
+<p>Here is the URL to the repository containing the project on Github: <a href="https://github.com/JBA15/Data-Management-Lab-5">https://github.com/JBA15/Data-Management-Lab-5</a></p>
 <section id="exercise-1" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
+<p>In this first exercise, we are working on the Spotify top songs data set, referencing the top songs on Spotify from 2000 to 2019.</p>
 <section id="question-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-1">Question 1</h3>
+<p>By using the <strong>distinct</strong> function, we are able to compute the number of different songs, artists and musical genre that have been included in the data set. To take into account covers of the same song made by different artists (or simply songs sharing the same title), we included both the <em>artist</em> and the <em>song</em> variable. We obtain the following results:</p>
 <p>The data set contains 1926 songs.</p>
 <p>The data set contains 835 artists.</p>
 <p>The data set contains 59 genres.</p>
 </section>
 <section id="question-2" class="level3">
 <h3 class="anchored" data-anchor-id="question-2">Question 2</h3>
+<p>We want to compute the number of distinct artists per year.</p>
 <p>Here is the table:</p>
 <table class="table">
+<caption>Number of distinct artists, per year</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">Year</th>
@@ -185,11 +189,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="question-3" class="level3">
 <h3 class="anchored" data-anchor-id="question-3">Question 3</h3>
-<p>The most popular artist is Rihanna with 23 songs.</p>
+<p>We are looking for the most popular artist in the data set. We consider the popularity of an artist as a function of the number of their songs appearing in the data set. In other words, the more the artist has his/her songs that are appearing in the data set (which contains the top songs in Spotify between 2000 and 2019), the more popular he/she is. To make sure that we count each song once, we use the data frame created at the question 1 used to get the number of songs.</p>
+<p>After the computations done, we can conclude that the most popular artist is Rihanna with 23 songs.</p>
 </section>
 <section id="question-4" class="level3">
 <h3 class="anchored" data-anchor-id="question-4">Question 4</h3>
-<p>Here is the table:</p>
+<p>We want to compute the mean, median, maximum and minimum of the <em>tempo</em> variable, as well as the number of songs for each musical genre. To make sure that each pair (artist, song) is used only once in the analysis, we use the same data frame as in question 3.</p>
+<p>Here is the table that we obtain:</p>
 <table class="table">
 <colgroup>
 <col style="width: 42%">
@@ -687,7 +693,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="question-5" class="level3">
 <h3 class="anchored" data-anchor-id="question-5">Question 5</h3>
-<p>Here is the table:</p>
+<p>We want to compute the means of the <em>liveness</em> and the <em>danceability</em> variables, per year, in a single data frame.</p>
+<p>Here is the table that we have:</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -817,6 +824,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="question-6" class="level3">
 <h3 class="anchored" data-anchor-id="question-6">Question 6</h3>
+<p>Finally, we want to draw on a single graph the temporal evolution of the mean annual liveness and the mean annual danceability. To do so, we use the data frame from question 5. Thus:</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="Lab-5_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
@@ -826,12 +834,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="exercise-2" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-2">Exercise 2</h2>
+<p>We now study the students’ dropout data set from the UCI.</p>
 <section id="question-1-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-1-1">Question 1</h3>
+<p>We first compute the median admission grade conditioned both the <em>Target</em> variable and on the <em>Marital status</em> variable.</p>
 </section>
 <section id="question-2-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-2-1">Question 2</h3>
-<p>Here is the table:</p>
+<p>We want to transform the data frame that we obtained in question 1 in order to have four variables: one for the <em>Marital status</em> variable, and one for each of the possible value of the <em>Target</em> variable.</p>
+<p>Here is the table that we obtain:</p>
 <table class="table">
 <thead>
 <tr class="header">

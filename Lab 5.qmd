@@ -8,7 +8,7 @@ echo: false
 keep-md: true
 ---
 
-Here is the URL: [https://github.com/JBA15/Data-Management-Lab-5](https://github.com/JBA15/Data-Management-Lab-5)
+Here is the URL to the repository containing the project on Github: [https://github.com/JBA15/Data-Management-Lab-5](https://github.com/JBA15/Data-Management-Lab-5)
 
 ```{r Setup, include = FALSE}
 here::i_am("Lab 5.Rproj")
@@ -21,11 +21,16 @@ theme_set(theme_bw())
 
 ## Exercise 1
 
+In this first exercise, we are working on the Spotify top songs data set, referencing the top songs on Spotify from 2000 to 2019.
+
 ```{r}
 spotify <- readRDS(here("top-spotify-hits-2000-2019.Rds"))
 ```
 
 ### Question 1
+
+By using the **distinct** function, we are able to compute the number of different songs, artists and musical genre that have been included in the data set. To take into account covers of the same song made by different artists (or simply songs sharing the same title), we included both the *artist* and the *song* variable.
+We obtain the following results:
 
 ```{r}
 spotify_songs <- spotify |> 
@@ -56,13 +61,15 @@ The data set contains `r nbgenre` genres.
 
 ### Question 2
 
-```{r}
+We want to compute the number of distinct artists per year.
+
+```{r table1}
 artists_by_year <- spotify |>
   group_by(year) |>
   distinct(artist)|>
   summarise(nbartists_by_year = n())
 
-table1 <- knitr::kable(artists_by_year, col.names = c("Year", "Number of distinct artists per year"))
+table1 <- knitr::kable(artists_by_year, col.names = c("Year", "Number of distinct artists per year"), caption = "Number of distinct artists, per year")
 ```
 
 Here is the table: 
@@ -70,6 +77,8 @@ Here is the table:
 `r table1`
 
 ### Question 3
+
+We are looking for the most popular artist in the data set. We consider the popularity of an artist as a function of the number of their songs appearing in the data set. In other words, the more the artist has his/her songs that are appearing in the data set (which contains the top songs in Spotify between 2000 and 2019), the more popular he/she is. To make sure that we count each song once, we use the data frame created at the question 1 used to get the number of songs.
 
 ```{r}
 most_pop_artist_table <- spotify_songs |>
@@ -86,57 +95,71 @@ most_pop_artist_nbsongs <- most_pop_artist_table |>
   pull(nbsongs_by_year)
 ```
 
-The most popular artist is `r most_pop_artist_name` with `r most_pop_artist_nbsongs` songs.
+After the computations done, we can conclude that the most popular artist is `r most_pop_artist_name` with `r most_pop_artist_nbsongs` songs.
 
 ### Question 4
 
-```{r}
+We want to compute the mean, median, maximum and minimum of the *tempo* variable, as well as the number of songs for each musical genre. To make sure that each pair (artist, song) is used only once in the analysis, we use the same data frame as in question 3.
+
+```{r table2}
 tempo_genre <- spotify_songs |>
   group_by(genre) |>
   distinct(tempo, song, .keep_all = TRUE) |>
   summarise(min(tempo), max(tempo), mean(tempo), median(tempo), n())
 
-table2 <- knitr::kable(tempo_genre)
+table2 <- knitr::kable(tempo_genre, caption = "Summary of the tempo variable, per genre")
 ```
 
-Here is the table:
+Here is the table that we obtain:
 
 `r table2`
 
 ### Question 5
 
-```{r}
+We want to compute the means of the *liveness* and the *danceability* variables, per year, in a single data frame.
+
+```{r table 3}
 liveness_danceability <- spotify_songs |>
   group_by(year) |>
   distinct(liveness, danceability, .keep_all = TRUE) |>
   summarise(mean_liveness = mean(liveness), 
             mean_danceability = mean(danceability))
 
-table3 <- knitr::kable(liveness_danceability)
+table3 <- knitr::kable(liveness_danceability, caption = "Mean liveness and danceability, per year")
 ```
 
-Here is the table:
+Here is the table that we have:
 
 `r table3`
 
 ### Question 6
 
+Finally, we want to draw on a single graph the temporal evolution of the mean annual liveness and the mean annual danceability. To do so, we use the data frame from question 5. Thus:
+
 ```{r}
-ggplot(liveness_danceability, aes(x = year)) +
-  geom_line(aes(y = mean_liveness, color = "Mean of the liveness")) +
-  geom_line(aes(y = mean_danceability, color = "Mean of the danceability")) +
+long_liveness_danceability <- liveness_danceability |> 
+    pivot_longer(-year, names_to = "Liveness and danceability", values_to = "Mean")
+
+ggplot(long_liveness_danceability, aes(x = year, 
+                                       y = Mean, group = `Liveness and danceability`, color = `Liveness and danceability`)) +
+  geom_line() +
   xlab("Year") +
   ylab("Value of the mean") +
   ggtitle("Evolution of the mean of the danceability and the mean of the liveness over time")
 ```
 
+
 ## Exercise 2
+
+We now study the students' dropout data set from the UCI.
 
 ```{r}
 dropout <- readRDS(here("dropout.RDS"))
 ```
 
 ### Question 1
+
+We first compute the median admission grade conditioned both the *Target* variable and on the *Marital status* variable.
 
 ```{r}
 median_admission_grade <- dropout |>
@@ -146,20 +169,24 @@ median_admission_grade <- dropout |>
 
 ### Question 2
 
-```{r}
+We want to transform the data frame that we obtained in question 1 in order to have four variables: one for the *Marital status* variable, and one for each of the possible value of the *Target* variable.
+
+```{r table4}
 median_admission_grade_2 <- dropout |>
   group_by(Target, `Marital status`) |>
   summarise(median_ad = median(`Admission grade`), .groups = "drop_last") |>
   pivot_wider(values_from = median_ad, names_from = Target)
 
-table4 <- knitr::kable(median_admission_grade_2)
+table4 <- knitr::kable(median_admission_grade_2, caption = "Target and Marital status")
 ```
 
-Here is the table:
+Here is the table that we obtain:
 
 `r table4`
 
 ### Question 3
+
+We can compute the conditional median of all variables related to curricular units given the value of the *Gender* variable.
 
 ```{r}
 curricular_units <- names(select(dropout, starts_with("Curricular units")))
@@ -169,10 +196,11 @@ median_curricular_units <- dropout |>
   summarize(across(all_of(curricular_units), ~median(., na.rm = TRUE)), .groups = 'drop')
 ```
 
-
 ### Question 4
 
-```{r}
+We can present our results in this form:
+
+```{r table5}
 step1 <- dropout |>
   select(starts_with("Curricular units"), Gender) |>
   pivot_longer(cols = starts_with("Curricular units"),
@@ -185,10 +213,8 @@ final_table <- step1 |>
   pivot_wider(names_from = Gender,
               values_from = Median_Value)
 
-table5 <- knitr::kable(final_table)
+table5 <- knitr::kable(final_table, caption = "Curricular units, per gender")
 ```
-
-Here is the table:
 
 `r table5`
 

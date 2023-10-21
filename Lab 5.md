@@ -10,7 +10,10 @@ keep-md: true
 
 
 
-Here is the URL: [https://github.com/JBA15/Data-Management-Lab-5](https://github.com/JBA15/Data-Management-Lab-5)
+
+Here is the URL to the repository containing the project on Github: [https://github.com/JBA15/Data-Management-Lab-5](https://github.com/JBA15/Data-Management-Lab-5)
+
+
 
 
 
@@ -18,49 +21,68 @@ Here is the URL: [https://github.com/JBA15/Data-Management-Lab-5](https://github
 
 ## Exercise 1
 
+In this first exercise, we are working on the Spotify top songs data set, referencing the top songs on Spotify from 2000 to 2019.
+
+
 
 ::: {.cell}
 
 :::
+
 
 
 ### Question 1
 
+By using the **distinct** function, we are able to compute the number of different songs, artists and musical genre that have been included in the data set. To take into account covers of the same song made by different artists (or simply songs sharing the same title), we included both the *artist* and the *song* variable.
+We obtain the following results:
+
+
 
 ::: {.cell}
 
 :::
+
 
 
 The data set contains 1926 songs.
 
 
+
 ::: {.cell}
 
 :::
+
 
 
 The data set contains 835 artists.
 
 
+
 ::: {.cell}
 
 :::
+
 
 
 The data set contains 59 genres.
 
 ### Question 2
 
+We want to compute the number of distinct artists per year.
+
+
 
 ::: {.cell}
 
 :::
 
 
+
 Here is the table: 
 
 
+
+Table: Number of distinct artists, per year
 
 | Year| Number of distinct artists per year|
 |----:|-----------------------------------:|
@@ -92,25 +114,35 @@ Here is the table:
 
 ### Question 3
 
+We are looking for the most popular artist in the data set. We consider the popularity of an artist as a function of the number of their songs appearing in the data set. In other words, the more the artist has his/her songs that are appearing in the data set (which contains the top songs in Spotify between 2000 and 2019), the more popular he/she is. To make sure that we count each song once, we use the data frame created at the question 1 used to get the number of songs.
+
+
 
 ::: {.cell}
 
 :::
 
 
-The most popular artist is Rihanna with 23 songs.
+
+After the computations done, we can conclude that the most popular artist is Rihanna with 23 songs.
 
 ### Question 4
 
+We want to compute the mean, median, maximum and minimum of the *tempo* variable, as well as the number of songs for each musical genre. To make sure that each pair (artist, song) is used only once in the analysis, we use the same data frame as in question 3.
+
+
 
 ::: {.cell}
 
 :::
 
 
-Here is the table:
+
+Here is the table that we obtain:
 
 
+
+Table: Summary of the tempo variable, per genre
 
 |genre                                 | min(tempo)| max(tempo)| mean(tempo)| median(tempo)| n()|
 |:-------------------------------------|----------:|----------:|-----------:|-------------:|---:|
@@ -178,15 +210,21 @@ Here is the table:
 
 ### Question 5
 
+We want to compute the means of the *liveness* and the *danceability* variables, per year, in a single data frame.
+
+
 
 ::: {.cell}
 
 :::
 
 
-Here is the table:
+
+Here is the table that we have:
 
 
+
+Table: Mean liveness and danceability, per year
 
 | year| mean_liveness| mean_danceability|
 |----:|-------------:|-----------------:|
@@ -218,41 +256,60 @@ Here is the table:
 
 ### Question 6
 
+Finally, we want to draw on a single graph the temporal evolution of the mean annual liveness and the mean annual danceability. To do so, we use the data frame from question 5. Thus:
+
+
 
 ::: {.cell}
 ::: {.cell-output-display}
-![](Lab-5_files/figure-html/unnamed-chunk-9-1.png){width=672}
+![](Lab-5_files/figure-pdf/unnamed-chunk-6-1.pdf)
 :::
 :::
+
+
 
 
 ## Exercise 2
 
+We now study the students' dropout data set from the UCI.
+
+
 
 ::: {.cell}
 
 :::
+
 
 
 ### Question 1
 
+We first compute the median admission grade conditioned both the *Target* variable and on the *Marital status* variable.
+
+
 
 ::: {.cell}
 
 :::
+
 
 
 ### Question 2
 
+We want to transform the data frame that we obtained in question 1 in order to have four variables: one for the *Marital status* variable, and one for each of the possible value of the *Target* variable.
+
+
 
 ::: {.cell}
 
 :::
 
 
-Here is the table:
+
+Here is the table that we obtain:
 
 
+
+Table: Target and Marital status
 
 |Marital status    | Dropout| Graduate| Enrolled|
 |:-----------------|-------:|--------:|--------:|
@@ -267,6 +324,9 @@ Here is the table:
 
 ### Question 3
 
+We can compute the conditional median of all variables related to curricular units given the value of the *Gender* variable.
+
+
 
 ::: {.cell}
 
@@ -276,15 +336,19 @@ Here is the table:
 
 ### Question 4
 
+We can present our results in this form:
+
+
 
 ::: {.cell}
 
 :::
 
 
-Here is the table:
 
 
+
+Table: Curricular units, per gender
 
 |Units                                          |     Male| Female|
 |:----------------------------------------------|--------:|------:|
