@@ -226,7 +226,7 @@ Here is the table that we have:
 
 Table: Mean liveness and danceability, per year
 
-| year| mean_liveness| mean_danceability|
+| year| Mean liveness| Mean danceability|
 |----:|-------------:|-----------------:|
 | 1998|     0.1800000|         0.7270000|
 | 1999|     0.1656000|         0.6689737|
@@ -283,7 +283,7 @@ We now study the students' dropout data set from the UCI.
 
 ### Question 1
 
-We first compute the median admission grade conditioned both the *Target* variable and on the *Marital status* variable.
+We first compute the median admission grade conditioned both on the *Target* variable and on the *Marital status* variable.
 
 
 

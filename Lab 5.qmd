@@ -122,8 +122,8 @@ We want to compute the means of the *liveness* and the *danceability* variables,
 liveness_danceability <- spotify_songs |>
   group_by(year) |>
   distinct(liveness, danceability, .keep_all = TRUE) |>
-  summarise(mean_liveness = mean(liveness), 
-            mean_danceability = mean(danceability))
+  summarise('Mean liveness' = mean(liveness), 
+            'Mean danceability' = mean(danceability))
 
 table3 <- knitr::kable(liveness_danceability, caption = "Mean liveness and danceability, per year")
 ```
@@ -159,7 +159,7 @@ dropout <- readRDS(here("dropout.RDS"))
 
 ### Question 1
 
-We first compute the median admission grade conditioned both the *Target* variable and on the *Marital status* variable.
+We first compute the median admission grade conditioned both on the *Target* variable and on the *Marital status* variable.
 
 ```{r}
 median_admission_grade <- dropout |>

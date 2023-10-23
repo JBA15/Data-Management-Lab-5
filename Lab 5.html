@@ -197,6 +197,7 @@ ul.task-list li input[type="checkbox"] {
 <p>We want to compute the mean, median, maximum and minimum of the <em>tempo</em> variable, as well as the number of songs for each musical genre. To make sure that each pair (artist, song) is used only once in the analysis, we use the same data frame as in question 3.</p>
 <p>Here is the table that we obtain:</p>
 <table class="table">
+<caption>Summary of the tempo variable, per genre</caption>
 <colgroup>
 <col style="width: 42%">
 <col style="width: 12%">
@@ -696,11 +697,12 @@ ul.task-list li input[type="checkbox"] {
 <p>We want to compute the means of the <em>liveness</em> and the <em>danceability</em> variables, per year, in a single data frame.</p>
 <p>Here is the table that we have:</p>
 <table class="table">
+<caption>Mean liveness and danceability, per year</caption>
 <thead>
 <tr class="header">
 <th style="text-align: right;">year</th>
-<th style="text-align: right;">mean_liveness</th>
-<th style="text-align: right;">mean_danceability</th>
+<th style="text-align: right;">Mean liveness</th>
+<th style="text-align: right;">Mean danceability</th>
 </tr>
 </thead>
 <tbody>
@@ -827,7 +829,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Finally, we want to draw on a single graph the temporal evolution of the mean annual liveness and the mean annual danceability. To do so, we use the data frame from question 5. Thus:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Lab-5_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="Lab-5_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -837,13 +839,14 @@ ul.task-list li input[type="checkbox"] {
 <p>We now study the students’ dropout data set from the UCI.</p>
 <section id="question-1-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-1-1">Question 1</h3>
-<p>We first compute the median admission grade conditioned both the <em>Target</em> variable and on the <em>Marital status</em> variable.</p>
+<p>We first compute the median admission grade conditioned both on the <em>Target</em> variable and on the <em>Marital status</em> variable.</p>
 </section>
 <section id="question-2-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-2-1">Question 2</h3>
 <p>We want to transform the data frame that we obtained in question 1 in order to have four variables: one for the <em>Marital status</em> variable, and one for each of the possible value of the <em>Target</em> variable.</p>
 <p>Here is the table that we obtain:</p>
 <table class="table">
+<caption>Target and Marital status</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Marital status</th>
@@ -894,11 +897,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="question-3-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-3-1">Question 3</h3>
+<p>We can compute the conditional median of all variables related to curricular units given the value of the <em>Gender</em> variable.</p>
 </section>
 <section id="question-4-1" class="level3">
 <h3 class="anchored" data-anchor-id="question-4-1">Question 4</h3>
-<p>Here is the table:</p>
+<p>We can present our results in this form:</p>
 <table class="table">
+<caption>Curricular units, per gender</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Units</th>
